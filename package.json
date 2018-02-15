@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "tap --coverage test/index.js",
-    "posttest": "standard"
+    "posttest": "standard",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
