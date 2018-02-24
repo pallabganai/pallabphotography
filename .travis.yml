@@ -1,8 +1,18 @@
 language: node_js
 node_js:
-  - '9'
-  - '8'
-  - '6'
-  - '4'
-
+- '9'
+- '8'
+- '6'
+- '4'
 script: echo "Running tests against $(node -v) ..."
+deploy:
+  provider: s3
+  access_key_id: AKIAJPVBQGZDPRDO25UQ
+  secret_access_key:
+    secure: DU5kq+YKIV7MoQRz8eFGKYXPOwoM5FNkyo5USPCJ2Myltw6aaDJTF8ID/TQt+hUw+kPOwEsdbB6ivSXPLHvDOgtl7Box+IOe2E19N/1KaysJQZb8BXOoGn4rv7leWdUPi4oG2T/Ge8U8tCUUUAMLWQUQUjxeW55KQT/1X480bGWQam+yCmbMH8EmNlu2G1SuwIlIdnmwTRYLCK9e0LtNoV9kRAPKhiiqUKLVc+qsfx0/MVxYHqMGf001Km0WIks61hcYsDmAWxy9SWgz5PMTNU2YsJ1eUbpGV/KvS5/GfoVsHegpBDSm98zGejlIJf2CO5DApTUoi+4GupjNmiyAKHvPatN5vwkV/rgVILYnQRW0KcvFm8Ne7SPLiHiOHnQcZXym6Wfo8am9Ds13TureA1AR4dlIcveSd3q+jQzddMCXDEeIiR58EYuY2oH6j2kaQSvyx2A3p5G9xrOsM++Inr3aPcWGpA93Z+1Mw2o89lWHOqGA+znuk7S8mcDEySINHwpjU985eSPr3sfMeAbRFVG0+c1qUhtoIHpykmjHJJC+QeyPOvOcebSaS2T5dr2UUhQXucEoQLknyspRMuoAFi8cSubwp9Y2WWVtc/lFX+PoNNPieIvEKn+18p30XAqyQ00RdVgBiS98DARqB14CIbl1fJzpgyXAiTtpRz8ioc8=
+  bucket: pallabphotography
+  local-dir: dist
+  acl: bucket_owner_full_control
+  on:
+    repo: pallabganai/pallabphotography
+    branch: webpac
