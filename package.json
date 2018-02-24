@@ -1,19 +1,16 @@
 {
   "name": "pallabphotography",
-  "version": "0.0.0-development",
-  "description": "Personal galary website of Pallab Ganai",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "Pallab Photography Galary",
+  "main": "app.js",
   "scripts": {
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test": "tap --coverage test/index.js",
-    "semantic-release": "semantic-release && npm publish",
-    "travis-deploy-once": "travis-deploy-once"
+    "start": "webpack-dev-server --entry ./src/js/app.js --output-filename ./dist/bundle.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pallabganai/pallabphotography.git"
+    "url": "git+https://github.com/pallabganai/pallabphotography.git"
   },
-  "keywords": [],
   "author": "Pallab Ganai",
   "license": "ISC",
   "bugs": {
@@ -21,16 +18,18 @@
   },
   "homepage": "https://github.com/pallabganai/pallabphotography#readme",
   "dependencies": {
-    "adjectives": "1.0.2",
-    "animals": "0.0.3",
-    "random-number-in-range": "1.0.2"
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
-    "coveralls": "3.0.0",
-    "nyc": "^11.4.1",
-    "semantic-release": "^12.4.1",
-    "standard": "^10.0.3",
-    "tap": "^11.1.0",
-    "travis-deploy-once": "^4.3.4"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "copy-webpack-plugin": "^4.4.1",
+    "css-loader": "^0.28.9",
+    "html-webpack-plugin": "^2.30.1",
+    "s3-deploy": "^0.9.0",
+    "style-loader": "^0.20.2",
+    "webpack": "^3.11.0"
   }
 }
