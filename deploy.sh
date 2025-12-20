@@ -7,8 +7,19 @@ set -e
 
 echo "🚀 Starting deployment process..."
 
+# Load .env file if it exists (for S3_BUCKET, CLOUDFRONT_DISTRIBUTION_ID, AWS_REGION)
+# Note: AWS credentials should still be configured via 'aws configure'
+if [ -f ".env" ]; then
+    echo "Loading configuration from .env file..."
+    export $(grep -v '^#' .env | grep -E '^(S3_BUCKET|S3_BUCKET_NAME|CLOUDFRONT_DISTRIBUTION_ID|AWS_REGION)=' | xargs)
+    # Map S3_BUCKET_NAME to S3_BUCKET if S3_BUCKET is not set
+    if [ -z "$S3_BUCKET" ] && [ -n "$S3_BUCKET_NAME" ]; then
+        export S3_BUCKET="$S3_BUCKET_NAME"
+    fi
+fi
+
 # Configuration
-# IMPORTANT: Update these values before deploying!
+# Priority: 1. Environment variables, 2. .env file, 3. Defaults
 # You can also set these as environment variables:
 #   export S3_BUCKET="your-bucket-name"
 #   export CLOUDFRONT_DISTRIBUTION_ID="E1234567890ABC"

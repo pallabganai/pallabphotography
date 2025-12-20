@@ -4,11 +4,50 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Starting deployment..."
 
+# Load .env file if it exists (for S3_BUCKET, CLOUDFRONT_DISTRIBUTION_ID, AWS_REGION)
+# Note: AWS credentials should still be configured via 'aws configure'
+# Check both root .env and scripts/.env
+$envFile = $null
+if (Test-Path ".env") {
+    $envFile = ".env"
+} elseif (Test-Path "scripts\.env") {
+    $envFile = "scripts\.env"
+}
+
+if ($envFile) {
+    Write-Host "Loading configuration from $envFile file..."
+    Get-Content $envFile | ForEach-Object {
+        if ($_ -match '^\s*([^#][^=]+)=(.*)$') {
+            $key = $matches[1].Trim()
+            $value = $matches[2].Trim()
+            # Remove quotes if present
+            if ($value -match '^["''](.*)["'']$') { $value = $matches[1] }
+            
+            # Map .env keys to script variables
+            switch ($key) {
+                "S3_BUCKET" { if (-not $env:S3_BUCKET) { $env:S3_BUCKET = $value } }
+                "S3_BUCKET_NAME" { if (-not $env:S3_BUCKET) { $env:S3_BUCKET = $value } }
+                "CLOUDFRONT_DISTRIBUTION_ID" { if (-not $env:CLOUDFRONT_DISTRIBUTION_ID) { $env:CLOUDFRONT_DISTRIBUTION_ID = $value } }
+                "AWS_REGION" { if (-not $env:AWS_REGION) { $env:AWS_REGION = $value } }
+            }
+        }
+    }
+} else {
+    Write-Host "No .env file found (checked root and scripts folder)"
+}
+
 # Configuration (with environment overrides)
-# IMPORTANT: Set these as environment variables or update the defaults below
+# Priority: 1. Environment variables, 2. .env file, 3. Defaults
 if ($env:S3_BUCKET) { $S3_BUCKET = $env:S3_BUCKET } else { $S3_BUCKET = "your-bucket-name" }
 if ($env:CLOUDFRONT_DISTRIBUTION_ID) { $CLOUDFRONT_DISTRIBUTION_ID = $env:CLOUDFRONT_DISTRIBUTION_ID } else { $CLOUDFRONT_DISTRIBUTION_ID = "" }
 if ($env:AWS_REGION) { $AWS_REGION = $env:AWS_REGION } else { $AWS_REGION = "us-west-2" }
+
+# Display configuration (for debugging)
+Write-Host "Configuration:"
+Write-Host "  S3_BUCKET: $S3_BUCKET"
+Write-Host "  CLOUDFRONT_DISTRIBUTION_ID: $CLOUDFRONT_DISTRIBUTION_ID"
+Write-Host "  AWS_REGION: $AWS_REGION"
+Write-Host ""
 
 # Check AWS CLI
 try { $null = Get-Command aws -ErrorAction Stop } catch {

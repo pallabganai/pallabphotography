@@ -55,7 +55,17 @@ A beautiful, cost-efficient photography portfolio website built with Angular and
    ```
 
 2. **Deployment Configuration** (Required):
-   - **Option A (Recommended)**: Set environment variables before running deploy scripts:
+   - **Option A (Recommended)**: Create a `.env` file in the project root or `scripts/` folder:
+     ```env
+     S3_BUCKET=your-bucket-name
+     # Or use S3_BUCKET_NAME instead:
+     # S3_BUCKET_NAME=your-bucket-name
+     CLOUDFRONT_DISTRIBUTION_ID=E1234567890ABC  # Optional, only if using CloudFront
+     AWS_REGION=us-west-2
+     ```
+     The deploy scripts will automatically load from `.env` file (checks both root and `scripts/` folder).
+   
+   - **Option B**: Set environment variables before running deploy scripts:
      ```bash
      # Windows PowerShell
      $env:S3_BUCKET="your-bucket-name"
@@ -67,9 +77,12 @@ A beautiful, cost-efficient photography portfolio website built with Angular and
      export CLOUDFRONT_DISTRIBUTION_ID="E1234567890ABC"  # CloudFront Distribution ID (starts with "E"), optional if not using CloudFront
      export AWS_REGION="us-west-2"
      ```
-   - **Option B**: Edit `deploy.sh` (Linux/Mac) or `deploy.ps1` (Windows) and update the default values
+   
+   - **Option C**: Edit `deploy.sh` (Linux/Mac) or `deploy.ps1` (Windows) and update the default values
    
    **Note**: `CLOUDFRONT_DISTRIBUTION_ID` is the CloudFront Distribution ID (found in AWS Console, starts with "E"), NOT your domain name. If you're not using CloudFront, leave it empty.
+   
+   **Priority**: Environment variables > `.env` file > Script defaults
 
 3. **Domain URLs** (Required if using custom domain):
    - Update `src/index.html`: Change `PHOTO_GALLERY_CDN_URL` and meta tags to your domain
@@ -83,7 +96,7 @@ A beautiful, cost-efficient photography portfolio website built with Angular and
    # Edit .env with your S3_BUCKET_NAME, AWS_REGION, and CLOUDFRONT_URL
    ```
 
-**Note**: The repository does not contain any hardcoded AWS credentials or sensitive information. All configuration must be done via environment variables or by editing the script files.
+**Note**: The repository does not contain any hardcoded AWS credentials or sensitive information. All configuration must be done via `.env` file, environment variables, or by editing the script files.
 
 ## 🚀 Quick Start
 
@@ -211,7 +224,18 @@ The numbers are used only for sorting and are not shown as tags.
 
 2. **Configure Deployment Scripts** (Required):
    
-   **Option A: Use Environment Variables (Recommended)**
+   **Option A: Use .env File (Recommended)**
+   Create a `.env` file in the project root or `scripts/` folder:
+   ```env
+   S3_BUCKET=your-bucket-name
+   # Or use S3_BUCKET_NAME instead:
+   # S3_BUCKET_NAME=your-bucket-name
+   CLOUDFRONT_DISTRIBUTION_ID=E1234567890ABC  # CloudFront Distribution ID (starts with "E"), optional if not using CloudFront
+   AWS_REGION=us-west-2
+   ```
+   The deploy scripts automatically check both root `.env` and `scripts/.env` files.
+   
+   **Option B: Use Environment Variables**
    ```bash
    # Windows PowerShell
    $env:S3_BUCKET="your-bucket-name"
@@ -224,17 +248,19 @@ The numbers are used only for sorting and are not shown as tags.
    export AWS_REGION="us-west-2"
    ```
    
-   **Important**: 
-   - `CLOUDFRONT_DISTRIBUTION_ID` is the **CloudFront Distribution ID** (found in AWS CloudFront Console, starts with "E" like `E2AXKFXUTE7ZNY`)
-   - This is **NOT** your domain name (e.g., `pallabsphotography.com`)
-   - If you're not using CloudFront, leave this empty or omit it
-   
-   **Option B: Edit Script Files**
+   **Option C: Edit Script Files**
    - Edit `deploy.sh` (Linux/Mac) or `deploy.ps1` (Windows)
    - Update the default values:
      - `S3_BUCKET` - Your S3 bucket name
      - `CLOUDFRONT_DISTRIBUTION_ID` - Your CloudFront Distribution ID (starts with "E", e.g., `E2AXKFXUTE7ZNY`). Find it in AWS CloudFront Console. Optional - leave empty if not using CloudFront.
      - `AWS_REGION` - Your AWS region (e.g., "us-west-2", "us-east-1")
+   
+   **Important**: 
+   - `CLOUDFRONT_DISTRIBUTION_ID` is the **CloudFront Distribution ID** (found in AWS CloudFront Console, starts with "E" like `E2AXKFXUTE7ZNY`)
+   - This is **NOT** your domain name (e.g., `pallabsphotography.com`)
+   - If you're not using CloudFront, leave this empty or omit it
+   
+   **Priority**: Environment variables > `.env` file > Script defaults
 
 3. **Configure Photo Upload Scripts** (Optional but recommended):
    ```bash
@@ -245,6 +271,8 @@ The numbers are used only for sorting and are not shown as tags.
    #   AWS_REGION=us-west-2
    #   CLOUDFRONT_URL=https://your-domain.com
    ```
+   
+   **Note**: If you create a `.env` file in the `scripts/` folder, the deploy scripts will also use it for deployment configuration (they check both root and `scripts/` folder).
 
 4. **Update Domain URLs in Code** (Required if using custom domain):
    - Edit `src/index.html`: Update `PHOTO_GALLERY_CDN_URL` and meta tags with your domain
@@ -289,11 +317,11 @@ npm run generate
 
 **Configuration Summary:**
 - ✅ **AWS Credentials**: Configured via `aws configure` (saved to ~/.aws/credentials)
-- ✅ **S3 Bucket Name**: Set via environment variable or edit deploy script
-- ✅ **CloudFront Distribution ID**: Set via environment variable or edit deploy script. This is the Distribution ID (starts with "E"), NOT your domain name. Optional if not using CloudFront.
-- ✅ **AWS Region**: Set via environment variable or edit deploy script
+- ✅ **S3 Bucket Name**: Set via `.env` file, environment variable, or edit deploy script
+- ✅ **CloudFront Distribution ID**: Set via `.env` file, environment variable, or edit deploy script. This is the Distribution ID (starts with "E"), NOT your domain name. Optional if not using CloudFront.
+- ✅ **AWS Region**: Set via `.env` file, environment variable, or edit deploy script
 - ✅ **Domain URLs**: Update in `src/index.html` and component files (this is where your domain name goes, e.g., `https://yourdomain.com`)
-- ✅ **Script Configuration**: Optional - create `scripts/.env` from `scripts/env.example`
+- ✅ **Script Configuration**: Optional - create `scripts/.env` from `scripts/env.example` (deploy scripts will also use this)
 
 ## 📁 Project Structure
 
