@@ -35,7 +35,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.3.12",
+    "@angular/animations": "^21.0.6",
     "@angular/common": "^17.3.12",
     "@angular/compiler": "^17.3.12",
     "@angular/core": "^17.3.12",
