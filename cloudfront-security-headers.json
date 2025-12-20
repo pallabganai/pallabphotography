@@ -1,0 +1,40 @@
+{
+  "Comment": "Security headers for CloudFront distribution",
+  "CustomHeadersConfig": {
+    "Quantity": 6,
+    "Items": [
+      {
+        "Header": "X-Content-Type-Options",
+        "Value": "nosniff",
+        "Override": true
+      },
+      {
+        "Header": "X-Frame-Options",
+        "Value": "DENY",
+        "Override": true
+      },
+      {
+        "Header": "X-XSS-Protection",
+        "Value": "1; mode=block",
+        "Override": true
+      },
+      {
+        "Header": "Referrer-Policy",
+        "Value": "strict-origin-when-cross-origin",
+        "Override": true
+      },
+      {
+        "Header": "Permissions-Policy",
+        "Value": "geolocation=(), microphone=(), camera=()",
+        "Override": true
+      },
+      {
+        "Header": "Strict-Transport-Security",
+        "Value": "max-age=31536000; includeSubDomains; preload",
+        "Override": true
+      }
+    ]
+  }
+}
+
+

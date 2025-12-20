@@ -1,0 +1,159 @@
+<div class="home">
+  <!-- Hero Section - Full Screen with Animated Background -->
+  <section class="hero-modern">
+    <!-- Animated Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="hero-shapes">
+      <div class="shape shape-1 float-animation"></div>
+      <div class="shape shape-2 float-animation delay-2"></div>
+      <div class="shape shape-3 float-animation delay-4"></div>
+    </div>
+    
+    <div class="container hero-content">
+      <div class="hero-text fade-in-up">
+        <span class="hero-label">📸 My Photography</span>
+        <h1 class="hero-title">
+          Capturing Life's
+          <br />
+          <span class="gradient-sunset">Beautiful Moments</span>
+        </h1>
+        <p class="hero-description fade-in-up delay-2">
+          Explore stunning visuals through my lens. Every photo tells a story,
+          every moment is a masterpiece waiting to be discovered.
+        </p>
+        <div class="hero-buttons fade-in-up delay-3">
+          <a routerLink="/" class="btn btn-primary">
+            View Gallery
+            <span>→</span>
+          </a>
+          <a routerLink="/contact" class="btn btn-outline">
+            Get In Touch
+          </a>
+        </div>
+      </div>
+      
+      <!-- Hero Visual Cards - Optional: Add your featured photos here -->
+      <!-- 
+      <div class="hero-visual fade-in-up delay-4">
+        <div class="visual-card card-1 pulse-animation">
+          <img src="assets/featured-1.jpg" alt="Featured photography" />
+        </div>
+        <div class="visual-card card-2 float-animation">
+          <img src="assets/featured-2.jpg" alt="Featured photography" />
+        </div>
+        <div class="visual-card card-3 pulse-animation delay-2">
+          <img src="assets/featured-3.jpg" alt="Featured photography" />
+        </div>
+      </div>
+      -->
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator pulse-animation">
+      <div class="mouse"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+
+  <!-- Featured Photos - Bento Grid Style -->
+  <section class="section featured-modern">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-label">✨ Featured Photos</span>
+        <h2>My Favorite <span class="gradient-text">Photographs</span></h2>
+        <p class="section-description">
+          A selection of my favorite photos across various styles and themes
+        </p>
+      </div>
+
+      <!-- Featured Photos Grid - Will be populated dynamically from gallery photos -->
+      <!-- For now, this section is hidden. Once you have photos, you can: -->
+      <!-- 1. Manually add featured photos here, OR -->
+      <!-- 2. Update the component to pull featured photos from the gallery -->
+      <div class="bento-grid" style="display: none;">
+        <!-- Featured photos will be added here -->
+      </div>
+      
+      <!-- Temporary: Show gallery link instead -->
+      <div class="text-center">
+        <p class="section-description" style="margin-bottom: 2rem;">
+          Check out the gallery to see my photography collection.
+        </p>
+      </div>
+
+      <div class="text-center mt-5">
+        <a routerLink="/" class="btn btn-gradient-sunset">
+          View All Photos
+          <span>✨</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photography Interests - Card Grid -->
+  <section class="section services-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-label">🎯 My Interests</span>
+        <h2>Photography <span class="gradient-sunset">Genres</span></h2>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card glass">
+          <div class="service-icon gradient-primary">🌄</div>
+          <h3>Landscape Photography</h3>
+          <p>Capturing the breathtaking beauty of nature in all its glory.</p>
+        </div>
+
+        <div class="service-card glass">
+          <div class="service-icon gradient-sunset">👤</div>
+          <h3>Portrait Photography</h3>
+          <p>Exploring the art of capturing people and their expressions.</p>
+        </div>
+
+        <div class="service-card glass">
+          <div class="service-icon gradient-neon">🏙️</div>
+          <h3>Urban Photography</h3>
+          <p>Exploring the art and architecture of city life.</p>
+        </div>
+
+        <div class="service-card glass">
+          <div class="service-icon gradient-primary">🌿</div>
+          <h3>Nature & Wildlife</h3>
+          <p>Documenting the natural world and its inhabitants.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA Section - Bold & Colorful -->
+  <section class="cta-modern">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">
+          Ready to Create
+          <br />
+          <span class="gradient-text">Something Amazing?</span>
+        </h2>
+        <p class="cta-description">
+          Explore my photography journey and discover the stories behind each image.
+          Connect with me to share your thoughts!
+        </p>
+        <div class="cta-buttons">
+          <a routerLink="/" class="btn btn-gradient-neon">
+            View Gallery
+            <span>✨</span>
+          </a>
+          <a routerLink="/about" class="btn btn-outline">
+            Learn More About Me
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

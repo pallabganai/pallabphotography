@@ -1,0 +1,103 @@
+<nav class="navbar-modern" [class.scrolled]="isScrolled">
+  <div class="container">
+    <div class="navbar-content">
+      <!-- Logo/Brand -->
+      <a routerLink="/" class="brand" (click)="closeMenu()">
+        <span class="brand-icon">📸</span>
+        <span class="brand-text">Pallab</span>
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <ul class="nav-menu desktop-menu">
+        <li>
+          <a routerLink="/" 
+             routerLinkActive="active" 
+             [routerLinkActiveOptions]="{exact: true}">
+            Gallery
+          </a>
+        </li>
+        <li>
+          <a routerLink="/about" 
+             routerLinkActive="active">
+            About
+          </a>
+        </li>
+        <li>
+          <a routerLink="/contact" 
+             routerLinkActive="active">
+            Contact
+          </a>
+        </li>
+      </ul>
+      
+      <!-- Theme Toggle -->
+      <button 
+        class="theme-toggle" 
+        (click)="toggleTheme()"
+        [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+        type="button">
+        <span class="theme-icon" [class.dark]="isDarkMode()">
+          <span class="sun">☀️</span>
+          <span class="moon">🌙</span>
+        </span>
+      </button>
+      
+      <!-- CTA Button -->
+      <a routerLink="/contact" class="nav-cta desktop-only">
+        <span>Let's Talk</span>
+        <span class="arrow">→</span>
+      </a>
+      
+      <!-- Mobile Menu Toggle -->
+      <button class="menu-toggle" 
+              (click)="toggleMenu()" 
+              [class.open]="isMenuOpen"
+              aria-label="Toggle menu">
+        <span class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" [class.open]="isMenuOpen" (click)="closeMenu()">
+    <div class="mobile-menu" (click)="$event.stopPropagation()">
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+          <a routerLink="/" 
+             routerLinkActive="active" 
+             [routerLinkActiveOptions]="{exact: true}"
+             (click)="closeMenu()">
+            <span class="nav-number">01</span>
+            <span class="nav-label">Gallery</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a routerLink="/about" 
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            <span class="nav-number">02</span>
+            <span class="nav-label">About</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a routerLink="/contact" 
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            <span class="nav-number">03</span>
+            <span class="nav-label">Contact</span>
+          </a>
+        </li>
+      </ul>
+      
+      <div class="mobile-menu-footer">
+        <a routerLink="/contact" class="mobile-cta btn btn-primary" (click)="closeMenu()">
+          Get In Touch
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

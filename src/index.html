@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pallab's Photography - Photography Gallery</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Explore stunning photography by Pallab. A curated gallery of photographs capturing beautiful moments and landscapes.">
+  <meta name="keywords" content="photography, photos, gallery, portfolio, Pallab">
+  <meta name="author" content="Pallab">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pallabsphotography.com/">
+  <meta property="og:title" content="Pallab's Photography">
+  <meta property="og:description" content="Explore stunning photography by Pallab. A curated gallery of photographs.">
+  <meta property="og:image" content="https://pallabsphotography.com/assets/og-image.jpg">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://pallabsphotography.com/">
+  <meta property="twitter:title" content="Pallab's Photography">
+  <meta property="twitter:description" content="Explore stunning photography by Pallab. A curated gallery of photographs.">
+  <meta property="twitter:image" content="https://pallabsphotography.com/assets/og-image.jpg">
+  
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Photo Gallery CDN Configuration -->
+  <!-- This allows the website to automatically load photos.json from S3/CloudFront -->
+  <!-- After uploading photos and running 'npm run generate', photos appear automatically -->
+  <!-- Using domain URL (which routes through CloudFront) for consistency and maintainability -->
+  <script>
+    window.PHOTO_GALLERY_CDN_URL = 'https://pallabsphotography.com';
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+

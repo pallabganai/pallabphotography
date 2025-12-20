@@ -1,0 +1,828 @@
+.gallery-page {
+  min-height: calc(100vh - 200px);
+  padding: 0;
+  outline: none;
+  overflow-x: hidden;
+  margin-top: 0; /* Remove any top margin that might cause overlap */
+}
+
+/* Gallery Hero Section - Compact */
+.gallery-hero {
+  min-height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--gradient-dark);
+  overflow: hidden;
+  padding: 1.5rem 0;
+  margin-bottom: 1rem;
+  
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+    animation: float 20s ease-in-out infinite;
+  }
+  
+  .blob-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--gradient-primary);
+    top: -150px;
+    right: -150px;
+    opacity: 0.3;
+  }
+  
+  .blob-2 {
+    width: 250px;
+    height: 250px;
+    background: var(--gradient-sunset);
+    bottom: -125px;
+    left: -125px;
+    animation-delay: 5s;
+    opacity: 0.3;
+  }
+}
+
+.gallery-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  
+  .hero-label {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 0.75rem;
+    line-height: 1.2; // Increased from 1.1 for better spacing
+    font-weight: 800;
+    letter-spacing: 0; // Removed negative spacing to prevent overlap
+    
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    // Add spacing between "My" and "Photography" to prevent overlap
+    .gradient-sunset {
+      display: inline-block; // Ensure proper spacing
+      letter-spacing: 0; // Ensure no negative spacing on gradient text
+      // Non-breaking space in HTML provides the spacing
+    }
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+    opacity: 0.9;
+  }
+}
+
+.gallery-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+  }
+  
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.8;
+    }
+  }
+}
+
+// Stats in tag filters section - more compact
+.tag-filters .gallery-stats {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  
+  .stat-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    
+    .stat-number {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+    color: var(--text-light);
+      text-transform: none;
+      letter-spacing: 0;
+      opacity: 0.8;
+    }
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Tag Filters - Compact
+.tag-filters {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  background-color: var(--bg-light);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.tag-chip {
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-white);
+  border: 2px solid rgba(102, 126, 234, 0.3); // More visible border
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background-color: rgba(0, 212, 255, 0.1); // Subtle background on hover
+    box-shadow: 0 4px 8px rgba(0, 212, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  &.active {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #667eea 100%);
+    border-color: var(--accent-color);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  &.show-more-btn {
+    border-style: dashed;
+    border-color: var(--text-light);
+    color: var(--text-light);
+    font-weight: 500;
+    background-color: transparent;
+    
+    &:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      background-color: rgba(102, 126, 234, 0.05);
+      border-style: solid;
+    }
+  }
+}
+
+.clear-filters {
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+  
+  &:hover {
+    background-color: var(--primary-color);
+  }
+}
+
+.results-count {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+// Loading & Error States
+.loading-container,
+.error-container,
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  p {
+    margin: 1rem 0;
+    color: var(--text-light);
+    font-size: 1.1rem;
+  }
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--bg-light);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 1.1rem;
+}
+
+// Grid Layout - Responsive Masonry for Landscape & Portrait Photos
+.masonry-grid {
+  column-count: 3;
+  column-gap: 1.5rem;
+  padding: 1rem 0 2rem;
+}
+
+.masonry-item {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--bg-light);
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 1.5rem;
+  break-inside: avoid;
+  opacity: 1;
+  visibility: visible;
+  
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    
+    .image-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .gallery-image {
+      transform: scale(1.05);
+      filter: brightness(0.9);
+    }
+  }
+}
+
+.gallery-image {
+  width: 100%;
+  height: 260px; // uniform height on desktop
+  display: block;
+  object-fit: cover;
+  transition: var(--transition);
+  background-color: var(--bg-light);
+}
+
+.image-loading-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  border-radius: 16px;
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(102, 126, 234, 0.2);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+:host-context(.dark-theme) .image-loading-placeholder {
+  background-color: var(--bg-dark);
+  
+  .loading-spinner {
+    border-color: rgba(102, 126, 234, 0.3);
+    border-top-color: var(--primary-color);
+  }
+}
+
+.image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  color: #999;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+  
+  .placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+  
+  .placeholder-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
+  
+  .placeholder-title {
+    font-size: 0.8rem;
+    color: #999;
+    font-style: italic;
+  }
+}
+
+:root.dark-theme .image-placeholder {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  color: #aaa;
+  
+  .placeholder-text {
+    color: #aaa;
+  }
+  
+  .placeholder-title {
+    color: #888;
+  }
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+  color: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  
+  h3 {
+    color: white;
+    font-size: 1rem; // smaller title text
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.photo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.photo-tag {
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+// Lightbox
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.lightbox-content {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  max-height: 90dvh; /* Use dynamic viewport height for mobile browsers */
+  display: flex;
+  flex-direction: column;
+  touch-action: pan-y; // Allow vertical scrolling, handle horizontal swipes ourselves
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    max-height: 100vh;
+    max-height: 100dvh; /* Full height on mobile */
+    /* Safe area support for iPhone */
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+  z-index: 10001;
+  transition: var(--transition);
+  min-width: 44px; /* iOS minimum touch target */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    color: var(--accent-color);
+  }
+  
+  @media (max-width: 768px) {
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    
+    /* Safe area support for iPhone */
+    top: max(10px, env(safe-area-inset-top, 10px));
+    right: max(10px, env(safe-area-inset-right, 10px));
+  }
+}
+
+.lightbox-image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer; // Indicates the image area is clickable for tap-on-sides navigation
+  position: relative;
+  min-height: 400px; // Ensure container has height while loading
+}
+
+.lightbox-loading-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  
+  .loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0;
+  }
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 70vh;
+  max-height: 70dvh; /* Use dynamic viewport height for mobile */
+  object-fit: contain;
+  animation: fadeIn 0.3s ease;
+  position: relative;
+  z-index: 2;
+  
+  @media (max-width: 768px) {
+    max-height: calc(100vh - 200px);
+    max-height: calc(100dvh - 200px); /* Account for info section on mobile */
+  }
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px; /* iOS minimum touch target */
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  &:active {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(0.95);
+  }
+  
+  &.lightbox-prev {
+    left: 20px;
+  }
+  
+  &.lightbox-next {
+    right: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    
+    &.lightbox-prev {
+      left: 10px;
+      /* Safe area support */
+      left: max(10px, env(safe-area-inset-left, 10px));
+    }
+    
+    &.lightbox-next {
+      right: 10px;
+      /* Safe area support */
+      right: max(10px, env(safe-area-inset-right, 10px));
+    }
+  }
+}
+
+.lightbox-info {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  
+  h2 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem; // slightly smaller in lightbox
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+  }
+  
+  .photo-counter {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+}
+
+// Responsive Design - Works with Landscape & Portrait Photos
+@media (max-width: 1400px) {
+  .masonry-grid {
+    column-count: 3;
+    column-gap: 1.25rem;
+  }
+  .gallery-image {
+    height: 240px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .masonry-grid {
+    column-count: 2;
+    column-gap: 1.25rem;
+  }
+  .gallery-image {
+    height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-page {
+    padding: 1rem 0;
+  }
+  
+  .gallery-header {
+    padding: 2rem 0 1rem;
+  }
+  
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1rem;
+  }
+  .gallery-image {
+    height: auto; // allow natural aspect on mobile
+  }
+  
+  // On tablets, show 2 columns for better layout
+  // Portrait and landscape photos will display naturally
+  
+  .lightbox-content {
+    width: 95%;
+  }
+  
+  .lightbox-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    
+    &.lightbox-prev {
+      left: 10px;
+    }
+    
+    &.lightbox-next {
+      right: 10px;
+    }
+  }
+  
+  .lightbox-info {
+    padding: 1rem;
+    
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    // Single column on mobile - photos display full width
+    // Landscape photos show wide, portrait photos show tall
+  }
+  
+  .tag-filters {
+    padding: 1rem;
+  }
+  
+  .tags-container {
+    gap: 0.5rem;
+  }
+  
+  .tag-chip {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+// Dark mode specific tag styles
+:root.dark-theme {
+  .tag-chip {
+    background-color: rgba(26, 26, 46, 0.8);
+    border-color: rgba(102, 126, 234, 0.5); // More visible in dark mode
+    color: #f0f0f0;
+    
+    &:hover {
+      background-color: rgba(0, 212, 255, 0.15);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, var(--accent-color) 0%, #667eea 100%);
+      border-color: var(--accent-color);
+      color: white;
+      box-shadow: 0 4px 16px rgba(0, 212, 255, 0.5);
+    }
+  }
+  
+  .tag-filters {
+    background-color: rgba(22, 33, 62, 0.6);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+// Light mode specific tag styles
+:root.light-theme {
+  .tag-chip {
+    background-color: #ffffff;
+    border-color: rgba(102, 126, 234, 0.4);
+    color: #1a1a2e;
+    
+    &:hover {
+      background-color: rgba(0, 212, 255, 0.08);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, var(--accent-color) 0%, #667eea 100%);
+      border-color: var(--accent-color);
+      color: white;
+    }
+  }
+  
+  .image-overlay {
+    padding: 1.5rem;
+    
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Ensure images maintain aspect ratio on all devices
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  // Natural aspect ratio preserved
+  // Landscape photos: wide rectangles
+  // Portrait photos: tall rectangles
+  // Square photos: squares
+}
+
+

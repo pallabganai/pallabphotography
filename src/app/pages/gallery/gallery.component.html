@@ -1,0 +1,175 @@
+<div class="gallery-page" (keydown)="handleKeydown($event)" tabindex="0">
+  <!-- Compact Hero Header -->
+  <section class="gallery-hero">
+    <div class="container">
+      <div class="gallery-hero-content fade-in-up">
+        <h1 class="hero-title">
+          My<span class="gradient-sunset">&nbsp;Photography</span>
+        </h1>
+        <p class="hero-description">
+          Explore my photography collection. Each image tells a unique story, every moment is a masterpiece waiting to be discovered.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-fluid">
+
+    <!-- Tag Filters -->
+    <div class="tag-filters" *ngIf="allTags.length > 0 || photos.length > 0">
+      <div class="gallery-stats" *ngIf="photos.length > 0">
+        <div class="stat-item">
+          <span class="stat-number gradient-text">{{ photos.length }}</span>
+          <span class="stat-label">Photos</span>
+        </div>
+        <div class="stat-item" *ngIf="allTags.length > 0">
+          <span class="stat-number gradient-sunset">{{ allTags.length }}</span>
+          <span class="stat-label">Categories</span>
+        </div>
+      </div>
+      <div class="tags-container" *ngIf="allTags.length > 0">
+        <button 
+          *ngFor="let tag of displayedTags; trackBy: trackByTag" 
+          class="tag-chip"
+          [class.active]="selectedTags.has(tag)"
+          (click)="toggleTag(tag)"
+          type="button"
+          [attr.aria-pressed]="selectedTags.has(tag)">
+          {{ tag }}
+        </button>
+        <button 
+          *ngIf="hasMoreTags" 
+          class="tag-chip show-more-btn"
+          (click)="toggleShowAllTags()"
+          type="button">
+          {{ showAllTags ? 'Show Less' : 'Show More (' + (allTags.length - MAX_TAGS_DISPLAYED) + ')' }}
+        </button>
+        <button 
+          *ngIf="selectedTags.size > 0" 
+          class="clear-filters"
+          (click)="clearFilters()">
+          Clear Filters
+        </button>
+      </div>
+      <div class="results-count" *ngIf="selectedTags.size > 0">
+        Showing {{ filteredPhotos.length }} of {{ photos.length }} photos
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="isLoading">
+      <div class="loading-spinner"></div>
+      <p>Loading photos...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-container" *ngIf="error && !isLoading">
+      <p class="error-message">{{ error }}</p>
+      <button class="btn btn-primary" (click)="retryLoad()">Retry</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="masonry-grid" *ngIf="!isLoading && !error && filteredPhotos.length > 0">
+      <div 
+        *ngFor="let photo of filteredPhotos; trackBy: trackByPhotoId; let i = index" 
+        class="masonry-item"
+        (click)="openLightbox(i)"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="'View ' + (photo.title || photo.alt)"
+        (keydown.enter)="openLightbox(i)"
+        (keydown.space)="openLightbox(i)">
+        <img 
+          [src]="getPhotoSrc(photo, 'grid')" 
+          [alt]="photo.alt || photo.title || 'Photo ' + (i + 1)"
+          [width]="photo.width || 300"
+          [height]="photo.height || 200"
+          loading="lazy"
+          decoding="async"
+          class="gallery-image"
+          #imgElement
+          (error)="onImageError($event, photo)"
+          (load)="onImageLoad($event, photo)"
+          (loadstart)="onImageLoadStart($event, photo)"
+          style="opacity: 0; transition: opacity 0.3s ease; display: block; min-height: 200px;" />
+        <div class="image-loading-placeholder" *ngIf="isImageLoading(photo)">
+          <div class="loading-spinner"></div>
+        </div>
+        <div class="image-overlay">
+          <h3>{{ getDisplayTitle(photo) }}</h3>
+          <div class="photo-tags" *ngIf="getDisplayTags(photo).length > 0">
+            <span *ngFor="let tag of getDisplayTags(photo)" class="photo-tag">{{ tag }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Empty State - No Photos -->
+    <div class="empty-state" *ngIf="!isLoading && !error && photos.length === 0">
+      <p>No photos available yet. Photos will appear here once they are uploaded.</p>
+      <p style="font-size: 0.9rem; color: #999; margin-top: 1rem;">Check the browser console for loading details.</p>
+    </div>
+    
+    <!-- Empty State - Filtered Out -->
+    <div class="empty-state" *ngIf="!isLoading && !error && photos.length > 0 && filteredPhotos.length === 0">
+      <p>No photos found with the selected filters.</p>
+      <button class="btn btn-primary" (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" *ngIf="lightboxOpen && currentPhoto" (click)="closeLightbox()">
+    <div 
+      class="lightbox-content" 
+      (click)="$event.stopPropagation()"
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+      (touchend)="onTouchEnd($event)">
+      <button class="lightbox-close" (click)="closeLightbox()" aria-label="Close">&times;</button>
+      
+      <button 
+        class="lightbox-nav lightbox-prev" 
+        (click)="previousPhoto()"
+        *ngIf="currentPhotoIndex > 0"
+        aria-label="Previous photo">
+        &#8249;
+      </button>
+      
+      <div 
+        class="lightbox-image-container"
+        (click)="onImageContainerClick($event)">
+        <div class="lightbox-loading-placeholder" *ngIf="lightboxImageLoading">
+          <div class="loading-spinner"></div>
+        </div>
+        <img 
+          [src]="getPhotoSrc(currentPhoto, 'lightbox')" 
+          [alt]="currentPhoto.alt || currentPhoto.title"
+          class="lightbox-image"
+          (load)="onLightboxImageLoad($event)"
+          (loadstart)="onLightboxImageLoadStart($event)"
+          (error)="onLightboxImageError($event)"
+          style="opacity: 0; transition: opacity 0.3s ease;" />
+      </div>
+      
+      <button 
+        class="lightbox-nav lightbox-next" 
+        (click)="nextPhoto()"
+        *ngIf="currentPhotoIndex < filteredPhotos.length - 1"
+        aria-label="Next photo">
+        &#8250;
+      </button>
+      
+      <div class="lightbox-info">
+        <h2>{{ getDisplayTitle(currentPhoto) }}</h2>
+        <p *ngIf="currentPhoto.description">{{ currentPhoto.description }}</p>
+        <div class="photo-tags" *ngIf="getDisplayTags(currentPhoto).length > 0">
+          <span *ngFor="let tag of getDisplayTags(currentPhoto)" class="photo-tag">{{ tag }}</span>
+        </div>
+        <p class="photo-counter">{{ currentPhotoIndex + 1 }} / {{ filteredPhotos.length }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
